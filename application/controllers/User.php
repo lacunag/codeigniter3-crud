@@ -1,16 +1,18 @@
 <?php
+defined('BASEPATH') or exit('No direct script access allowed');
 
-// example controller code
+class User extends CI_Controller {
 
-class Users extends CI_Controller {
+    public function __construct(){
+        parent::__construct();
+        $this->load->helper(array('form', 'url'));
+        $this->load->model('user_model');
+    }
 
-
-
-
-    public function users()
+    public function index()
     {
-        $users = $this->user_model->get_users();
-        $this->load->view('user', array('users' => $users));
+        $user = $this->user_model->get_users();
+        $this->load->view('users', array('user' => $user));
     }
 
     public function user($id)

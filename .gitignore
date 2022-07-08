@@ -1,32 +1,13 @@
-.DS_Store
+# Ignora los archivos third_party folder
+application/third_party/clients/*
+application/third_party/guardians/*
+application/third_party/purchase_orders/*
 
-application/cache/*
-!application/cache/index.html
+application/config/config.php
+application/config/database.php
 
-application/logs/*
-!application/logs/index.html
+# Ignora todos los archivos de texto
+*.txt
 
-!application/*/.htaccess
-
-composer.lock
-tests/mocks/database/ci_test.sqlite
-
-user_guide_src/build/*
-user_guide_src/cilexer/build/*
-user_guide_src/cilexer/dist/*
-user_guide_src/cilexer/pycilexer.egg-info/*
-/vendor/
-
-# IDE Files
-#-------------------------
-/nbproject/
-.idea/*
-
-## Sublime Text cache files
-*.tmlanguage.cache
-*.tmPreferences.cache
-*.stTheme.cache
-*.sublime-workspace
-*.sublime-project
-/tests/tests/
-/tests/results/
+# Ignora los archivos relacionados a API keys
+.env
