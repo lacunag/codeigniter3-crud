@@ -1,8 +1,4 @@
 # Ignora los archivos third_party folder
-application/third_party/clients/*
-application/third_party/guardians/*
-application/third_party/purchase_orders/*
-
 application/config/config.php
 application/config/database.php
 
