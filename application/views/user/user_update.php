@@ -1,6 +1,6 @@
 <?php echo validation_errors(); ?>
 
-edit user
+Edit User
 <form method="post" action="<?php echo base_url().'user/edit_user/'.$user->id; ?> ">
     <div class="form-group">
         <label for="name">Name</label>

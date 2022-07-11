@@ -13,6 +13,7 @@
 
 <body>
 
+    <a href="<?php echo base_url().'user/add_user'; ?> " class="btn btn-success">Add User</a>
 
     <table id="example" class="table table-striped" style="width:100%">
         <thead>

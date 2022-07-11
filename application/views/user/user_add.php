@@ -1,5 +1,6 @@
 <?php echo validation_errors(); ?>
 
+Add User
 <form method="post" action="<?php echo base_url().'user/add_user'; ?> ">
     <div class="form-group">
         <label for="name">Name</label>
