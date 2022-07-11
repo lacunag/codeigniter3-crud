@@ -16,7 +16,7 @@
                 <td><?php echo $user->name; ?></td>
                 <td><?php echo $user->email; ?></td>
                 <td><?php echo $user->phone; ?></td>
-                <td><img src="<?php echo base_url() . 'uploads/' . $user->picture; ?>" width="100" height="100"></td>
+                <td><img src="<?php echo base_url() . 'assets/upload/' . $user->picture; ?>" width="100" height="100"></td>
                 <td>
                     <a href="<?php echo base_url() . 'user/edit_user/' . $user->id; ?>" class="btn btn-primary">Edit</a>
                     <a href="<?php echo base_url() . 'user/delete_user/' . $user->id; ?>" class="btn btn-danger">Delete</a>

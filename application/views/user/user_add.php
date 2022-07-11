@@ -1,7 +1,9 @@
-<?php echo validation_errors(); ?>
 
 <h1>Add User</h1>
-<form method="post" action="<?php echo base_url().'user/add_user'; ?> ">
+
+<?php echo validation_errors('<div class="text-danger">', '</div>'); ?>
+
+<?php echo form_open_multipart('user/add_user');?>
     <div class="form-group">
         <label for="name">Name</label>
         <input type="text" class="form-control" id="name" name="name" placeholder="Enter name">

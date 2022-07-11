@@ -28,9 +28,8 @@ class User extends CI_Controller {
     {
         // validation input name, email, phone, picture file
         $this->form_validation->set_rules('name', 'Name', 'required');
-        $this->form_validation->set_rules('email', 'Email', 'required');
+        $this->form_validation->set_rules('email', 'Email', 'required|is_unique[users.email]');
         $this->form_validation->set_rules('phone', 'Phone', 'required');
-        $this->form_validation->set_rules('picture', 'Picture', 'required');
         // validation input name, email, phone, picture
 
         if ($this->form_validation->run() == FALSE) {
@@ -39,16 +38,32 @@ class User extends CI_Controller {
             $name = $this->input->post('name');
             $email = $this->input->post('email');
             $phone = $this->input->post('phone');
-            $picture = $this->input->post('picture');
 
-            $resp = $this->user_model->insert_user($name, $email, $phone, $picture);
-            if ($resp) {
-                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Success add user</div>');
+            // upload picture
+            $config['upload_path'] = 'assets/upload/';
+            $config['allowed_types'] = 'gif|jpg|png';
+            $config['max_width'] = '1024';
+            $config['max_height'] = '768';
+            $this->load->library('upload', $config);
+
+            if (!$this->upload->do_upload('picture')) {
+
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">'.$this->upload->display_errors().'</div>');
+                $this->template->portal_template('user/user_add');
             } else {
-                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Failed add user</div>');
+                $data = array('upload_data' => $this->upload->data());
+                $picture = $data['upload_data']['file_name'];
+
+                $resp = $this->user_model->insert_user($name, $email, $phone, $picture);
+                if ($resp) {
+                    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Success edit user</div>');
+                } else {
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Failed edit user</div>');
+                }
+                
+                redirect('user/users');
             }
-            redirect('user/users');
-                         
+                                     
         }
     }
 
@@ -58,7 +73,6 @@ class User extends CI_Controller {
         $this->form_validation->set_rules('name', 'Name', 'required');
         $this->form_validation->set_rules('email', 'Email', 'required');
         $this->form_validation->set_rules('phone', 'Phone', 'required');
-        $this->form_validation->set_rules('picture', 'Picture', 'required');
         // validation input name, email, phone, picture
 
         if ($this->form_validation->run() == FALSE) {
@@ -70,13 +84,30 @@ class User extends CI_Controller {
             $phone = $this->input->post('phone');
             $picture = $this->input->post('picture');
 
-            $resp = $this->user_model->edit_user($id, $name, $email, $phone, $picture);
-            if ($resp) {
-                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Success edit user</div>');
+            // upload picture
+            $config['upload_path'] = 'assets/upload/';
+            $config['allowed_types'] = 'gif|jpg|png';
+            $config['max_width'] = '1024';
+            $config['max_height'] = '768';
+            $this->load->library('upload', $config);
+
+            if (!$this->upload->do_upload('picture')) {
+
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">'.$this->upload->display_errors().'</div>');
+                $this->template->portal_template('user/user_add');
             } else {
-                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Failed edit user</div>');
+                $data = array('upload_data' => $this->upload->data());
+                $picture = $data['upload_data']['file_name'];
+
+                $resp = $this->user_model->update_user($id, $name, $email, $phone, $picture);
+                if ($resp) {
+                    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Success edit user</div>');
+                } else {
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Failed edit user</div>');
+                }
+                
+                redirect('user/users');
             }
-            redirect('user/users');
                          
         }
     }
