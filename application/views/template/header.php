@@ -13,5 +13,6 @@
 
 <body>
     <div class="container-fluid mt-5">
+        <?php echo $this->session->flashdata('message'); ?>
         
     

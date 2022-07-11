@@ -6,7 +6,7 @@ class User extends CI_Controller {
     public function __construct(){
         parent::__construct();
         $this->load->helper(array('form', 'url'));
-        $this->load->library(array('form_validation', 'template'));
+        $this->load->library(array('form_validation', 'template', 'session'));
         $this->load->model('user_model');
     }
 
@@ -43,10 +43,11 @@ class User extends CI_Controller {
 
             $resp = $this->user_model->insert_user($name, $email, $phone, $picture);
             if ($resp) {
-                redirect('user/users');
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Success add user</div>');
             } else {
-                $this->template->portal_template('user/user_add');
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Failed add user</div>');
             }
+            redirect('user/users');
                          
         }
     }
@@ -71,10 +72,11 @@ class User extends CI_Controller {
 
             $resp = $this->user_model->edit_user($id, $name, $email, $phone, $picture);
             if ($resp) {
-                redirect('user/users');
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Success edit user</div>');
             } else {
-                $this->template->portal_template('user/user_update');
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Failed edit user</div>');
             }
+            redirect('user/users');
                          
         }
     }
@@ -83,9 +85,9 @@ class User extends CI_Controller {
     {
         $resp = $this->user_model->delete_user($id);
         if ($resp) {
-            
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Success delete user</div>');
         } else {
-            
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Failed delete user</div>');
         }
         redirect('user/users');
     }
