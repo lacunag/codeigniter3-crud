@@ -10,6 +10,7 @@ This project is an example for creating a simple crud. The main child functions:
 - send data by post
 ## Installation
 
+- Renname config and database (config)
 - Create database
 - Execute Migrations
 - Configuration baseURL and database
