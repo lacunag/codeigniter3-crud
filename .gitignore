@@ -1,0 +1,9 @@
+# Ignora los archivos third_party folder
+application/config/config.php
+application/config/database.php
+
+# Ignora todos los archivos de texto
+*.txt
+
+# Ignora los archivos relacionados a API keys
+.env
