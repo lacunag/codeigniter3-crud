@@ -1,6 +1,6 @@
 <?php echo validation_errors(); ?>
 
-Edit User
+<h1>Edit User</h1>
 <form method="post" action="<?php echo base_url().'user/edit_user/'.$user->id; ?> ">
     <div class="form-group">
         <label for="name">Name</label>
@@ -18,5 +18,8 @@ Edit User
         <label for="picture">Picture</label>
         <input type="file" class="form-control" id="picture" name="picture" placeholder="Enter picture" value="<?php echo $user->picture; ?>">
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <div class="mt-2">
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <a href="<?php echo base_url() . 'user/users'; ?> " class="btn btn-secondary">Back</a>
+    </div>
 </form>

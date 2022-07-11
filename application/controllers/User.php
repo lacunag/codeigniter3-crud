@@ -6,14 +6,16 @@ class User extends CI_Controller {
     public function __construct(){
         parent::__construct();
         $this->load->helper(array('form', 'url'));
-        $this->load->library('form_validation');
+        $this->load->library(array('form_validation', 'template'));
         $this->load->model('user_model');
     }
 
-    public function index()
+    public function users()
     {
-        $user = $this->user_model->get_users();
-        $this->load->view('user/users', array('users' => $user));
+        $data = array(
+            'info_users' => $this->user_model->get_users()
+        );
+        $this->template->portal_template('user/users', $data);
     }
 
     public function user($id)
@@ -32,7 +34,7 @@ class User extends CI_Controller {
         // validation input name, email, phone, picture
 
         if ($this->form_validation->run() == FALSE) {
-            $this->load->view('user/user_add');
+            $this->template->portal_template('user/user_add');
         } else {
             $name = $this->input->post('name');
             $email = $this->input->post('email');
@@ -41,9 +43,9 @@ class User extends CI_Controller {
 
             $resp = $this->user_model->insert_user($name, $email, $phone, $picture);
             if ($resp) {
-                redirect('user');
+                redirect('user/users');
             } else {
-                $this->load->view('user/user_add');
+                $this->template->portal_template('user/user_add');
             }
                          
         }
@@ -60,7 +62,7 @@ class User extends CI_Controller {
 
         if ($this->form_validation->run() == FALSE) {
             $user = $this->user_model->get_user($id);
-            $this->load->view('user/user_update', array('user' => $user));
+            $this->template->portal_template('user/user_update', array('user' => $user));
         } else {
             $name = $this->input->post('name');
             $email = $this->input->post('email');
@@ -71,7 +73,7 @@ class User extends CI_Controller {
             if ($resp) {
                 redirect('user/users');
             } else {
-                $this->load->view('user/user_update');
+                $this->template->portal_template('user/user_update');
             }
                          
         }
@@ -81,10 +83,11 @@ class User extends CI_Controller {
     {
         $resp = $this->user_model->delete_user($id);
         if ($resp) {
-            redirect('user');
+            
         } else {
-            $this->load->view('user_delete');
+            
         }
+        redirect('user/users');
     }
     
 }
